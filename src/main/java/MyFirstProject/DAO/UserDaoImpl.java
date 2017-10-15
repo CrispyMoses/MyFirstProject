@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -27,11 +26,7 @@ public class UserDaoImpl implements UserDAO {
     @SuppressWarnings("unchecked")
     public List<User> listUsers() {
         Session session = sessionFactory.getCurrentSession();
-        List<User> users = session.createQuery("from users").list();
-        for (User user : users) {
-            logger.info("Successfully get " + user.getUsername());
-
-        }
+        List<User> users = session.createCriteria(User.class).list();
         return users;
     }
 }
