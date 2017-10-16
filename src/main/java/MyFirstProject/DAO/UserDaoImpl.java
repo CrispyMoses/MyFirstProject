@@ -26,7 +26,7 @@ public class UserDaoImpl implements UserDAO {
     @SuppressWarnings("unchecked")
     public List<User> listUsers() {
         Session session = sessionFactory.getCurrentSession();
-        List<User> users = session.createCriteria(User.class).list();
+        List<User> users = session.createQuery("from User").list();
         return users;
     }
 }
