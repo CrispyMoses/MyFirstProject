@@ -12,10 +12,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href=${css} rel="stylesheet" />
         <link href=${bootstrap} rel="stylesheet />
-        <script type="javascript" href="<c:url value="/resources/js/bootstrap.js"/> " />
         <title>Home</title>
     </head>
     <body>
+    <form:form method="POST" commandName="pidor" action="add-user">
+        <fieldset>
+            <form:label path="username">username:</form:label>
+            <form:input path="username"/>
+            <form:label path="password">password:</form:label>
+            <form:input path="password"/>
+            <form:label path="role">role:</form:label>
+            <form:input path="role"/>
+            <input type="submit" value="Подтведить">
+        </fieldset>
+    </form:form>
         <h1>Юзвери</h1>
     <table class="table table-bordered">\
         <tr>
@@ -23,15 +33,19 @@
             <td>username</td>
             <td>password</td>
             <td>ROLE</td>
+            <td>Action</td>
         </tr>
+        <c:if test="${!empty users}">
             <c:forEach var="user" items="${users}">
                 <tr>
                     <td>${user.id}</td>
                     <td>${user.username}</td>
                     <td>${user.password}</td>
                     <td>${user.role}</td>
+                    <td><a href="/delete/${user.id}">delete user</a></td>
                 </tr>
             </c:forEach>
+        </c:if>
     </table>
     </body>
 </html>

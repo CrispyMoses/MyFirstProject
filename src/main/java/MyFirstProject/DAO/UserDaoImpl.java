@@ -25,8 +25,27 @@ public class UserDaoImpl implements UserDAO {
     @Override
     @SuppressWarnings("unchecked")
     public List<User> listUsers() {
-        Session session = sessionFactory.getCurrentSession();
-        List<User> users = session.createQuery("from User").list();
+        List<User> users = getSession().createQuery("from User").list();
         return users;
+    }
+
+    @Override
+    public void addUser(User user) {
+        getSession().save(user);
+    }
+
+    private Session getSession() {
+        return sessionFactory.getCurrentSession();
+    }
+
+    @Override
+    public User getUserById(int id) {
+        User user = getSession().get(User.class, new Integer(id));
+        return user;
+    }
+
+    @Override
+    public void removeUser(int id) {
+        getSession().delete(getUserById(id));
     }
 }
